@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 
 export enum OrderStatus {
   PendingCollection = 'Pending Collection',
@@ -38,9 +39,11 @@ export interface Customer {
 }
 
 export enum ServiceCategory {
-  MonthlyPlan = 'Monthly Plan',
-  PerItem = 'Per Item',
-  Addon = 'Add-on',
+  Plan = 'Plan',
+  Base = 'Base Service',
+  Extra = 'Extra',
+  SpecialCare = 'Special Care',
+  Packaging = 'Packaging',
 }
 
 export interface Service {
@@ -49,4 +52,26 @@ export interface Service {
   description: string;
   price: number;
   category: ServiceCategory;
+  availability: 'plan' | 'avulso' | 'both'; 
+}
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string;
+  address?: string;
+  role: 'admin' | 'customer';
+}
+
+export interface AuthContextType {
+  user: User | null;
+  isAuthenticated: boolean;
+  login: (email: string, pass: string) => Promise<User | null>;
+  logout: () => void;
+  loading: boolean;
+}
+
+export interface AuthProviderProps {
+  children: ReactNode;
 }
